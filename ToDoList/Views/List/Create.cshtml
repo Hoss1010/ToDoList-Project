@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ToDoList.Models.CrudList>
+
+<!-- رسالة التأكيد -->
+<div id="message" style="display:none; background-color:#d4edda; color:#155724; padding:10px; border:1px solid #c3e6cb; border-radius:5px; margin-bottom:15px;">
+    ✅ Create action triggered!
+</div>
+
+<div>
+    <h1>Create New</h1>
+
+    <form action="/List/Create" method="post" id="createForm">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name</label>
+            <input type="text" name="Name" class="form-control" id="Name">
+        </div>
+
+        <div class="mb-3">
+            <label for="Description" class="form-label">Description</label>
+            <input type="text" name="Description" class="form-control" id="Description">
+        </div>
+
+        <div class="mb-3">
+            <label for="DeadLine" class="form-label">DeadLine</label>
+            <input type="datetime-local" name="DeadLine" class="form-control" id="DeadLine">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+
+<!-- سكريبت الرسالة -->
+<script>
+    const form = document.getElementById('createForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', function () {
+        message.style.display = 'block';
+        message.textContent = '✅ Create action triggered!';
+
+        // الرسالة تفضل ظاهرة لمدة 5 ثواني
+        setTimeout(() => {
+            message.style.display = 'none';
+        }, 5000);
+    });
+</script>

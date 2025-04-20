@@ -1,0 +1,59 @@
+﻿
+
+<div class="text">
+    <h1 class="display-4">Welcome, Hosam</h1>
+    <p class="card-text">Here is your to-do list:</p>
+    <a href="/List/Create" class="btn btn-primary">Create new</a>
+</div>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">DeadLine</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@(item.DeadLine?.ToString("yyyy-MM-dd") ?? "No deadline")</td>
+                <td>
+                    <a href="/List/Edit/@item.Id" class="btn btn-primary">Edit</a>
+                    <a href="javascript:void(0);" onclick="confirmDelete(@item.Id)" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function confirmDelete(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won’t be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `/List/Delete/${id}`;
+                }
+            });
+        }
+    </script>
+}
+
